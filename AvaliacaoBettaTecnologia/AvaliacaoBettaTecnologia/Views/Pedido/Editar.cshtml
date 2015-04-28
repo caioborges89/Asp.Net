@@ -1,0 +1,78 @@
+﻿@model Avaliacao.DTO.PedidoDTO
+
+@{
+    ViewBag.Title = "Editar Pedido";
+}
+
+<h2>Editar Pedido</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Dados do Pedido</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Id, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Id, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Id)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cliente.Nome, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Cliente.Nome, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Cliente.Nome)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Data, string.Format("{0:dd/MM/yyyy}", Model.Data), new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Data)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao)
+                @Html.ValidationMessageFor(model => model.Descricao)
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Valor, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Valor)
+                @Html.ValidationMessageFor(model => model.Valor)
+            </div>
+        </div>
+    </div>
+    
+    <input type="submit" value="Salvar" class="btn btn-success" />
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Pedido")';return false;">Voltar</button>    
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquerymask")
+    <script type="text/javascript">
+        (function () {
+            /*Muda a formatação da data*/
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || Globalize.parseDate(value, 'dd/MM/yyyy') != null;
+            }
+        })()
+    </script>
+}

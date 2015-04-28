@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Avaliacao.DTO.PedidoDTO>
+
+@{
+    ViewBag.Title = "Pedidos";
+}
+
+<h2>Pedidos</h2>
+
+
+@using (Html.BeginForm("Consultar"))
+{
+    
+<p>      
+    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Cadastrar", "Pedido")';return false;"><span class="glyphicon glyphicon-new-window"></span>Novo</button>    
+    <button type="submit" class="btn btn-default" ><span class="glyphicon glyphicon-search"></span>Consulta</button>
+</p>
+    
+        <table class="table-responsive">
+           <tr>
+                <td> <h4> Pesquisa: </h4> <span style="padding-left:100px"></span> </td> 
+                <td> @Html.Label("Nome") @Html.TextBox("Cliente.Nome") <span style="padding-left:80px"></span> </td>  
+                <td> @Html.Label("De")   @Html.TextBox("DataInicial", string.Format("{0:dd/MM/yyyy}",""),new {mask = "99/99/9999"}) <span style="padding-left:10px"></span> </td>  
+                <td> @Html.Label("Até")  @Html.TextBox("DataFinal", string.Format("{0:dd/MM/yyyy}", ""), new { mask = "99/99/9999" }) <span style="padding-left:80px"></span> </td> 
+                             
+                               
+           </tr>
+    </table>
+    
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.Nome)         
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Data)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor)
+        </td>
+        <td class="col-lg-3">
+            <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Editar", "Pedido", new { id = item.Id })';return false;"><span class="glyphicon glyphicon-pencil"></span>Editar</button>
+
+            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Detalhes", "Pedido", new { id = item.Id })';return false;"><span class="glyphicon glyphicon-align-justify"></span>Detalhes</button>
+
+            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Excluir", "Pedido", new { id = item.Id })' ;return false;"><span class="glyphicon glyphicon-trash"></span>Excluir</button>
+        </td>
+    </tr>
+}
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquerymask")
+}

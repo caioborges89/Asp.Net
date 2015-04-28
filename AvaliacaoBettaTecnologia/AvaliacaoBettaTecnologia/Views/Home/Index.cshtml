@@ -1,0 +1,17 @@
+﻿@model Avaliacao.DTO.ItensIndexDTO 
+@{
+    ViewBag.Title = "Pagina Inicial";
+}
+
+<div class="jumbotron">
+    <h2>Cadastro de Clientes e Pedidos</h2>  
+    <h4>Operações: </h4> 
+    
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Cadastrar", "Cliente")';return false;">Cadastrar Cliente</button>    
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Cliente")';return false;">Consultar Cliente</button>    
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Cadastrar", "Pedido")';return false;">Cadastrar Pedido</button>    
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Pedido")';return false;">Consultar Pedido</button>    
+    
+
+</div>
+
